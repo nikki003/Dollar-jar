@@ -16,16 +16,8 @@ import React from 'react';
 
 const person = (props) => {
   return <div>
-    <p>{props.name}    <button >+</button><button >-</button>   Total = {props.j} </p>
+    <p>{props.name} :  {props.j} <button >+</button><button >-</button>  </p>
   </div>
 };
-
-
-
-
-
-
-
-
 
 export default person;
