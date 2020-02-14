@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import Persons from './Persons/Persons.js';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import {Route, Link, BrowserRouter as Router} from 'react-router-dom';
 // import logo from './logo.svg';
 import './App.css';
 
@@ -37,34 +32,21 @@ class App extends Component {
     this.setState({setName: event.target.value});
   }
 
+  setNameHandler = (event) => {
+    let temp = this.state.setName;
+    this.setState({setName: temp});
+  }
+
   render(){
     return (
       <Router>
-        <div>
-          <input type="text" onClick={this.nameHandler} />
-          <ul>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
+      <div>
+        <input type="text" onChange={this.nameHandler} />
+        <Link to="/Persons/Persons"><button onClick={this.setNameHandler}>Go</button></Link>
 
-          <hr />
-
-          {/*
-            A <Switch> looks through all its children <Route>
-            elements and renders the first one whose path
-            matches the current URL. Use a <Switch> any time
-            you have multiple routes, but you want only one
-            of them to render at a time
-          */}
-          <Switch>
-            <Route exact path="/about">
-              <Persons name={this.state.setName}/>
-            </Route>
-
-          </Switch>
-        </div>
-      </Router>
+        <Route path="/Persons/Persons" component={Persons} />
+    </div>
+  </Router>
 
     )
   }
