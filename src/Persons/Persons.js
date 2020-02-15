@@ -22,7 +22,7 @@ class Persons extends Component {
       // {id:'9', name:'Yash', j:0}
     ],
 
-    jar: ""
+    jar: 10
   };
   this.addPerson = this.addPerson.bind(this);
 
@@ -52,15 +52,21 @@ class Persons extends Component {
   }
 
   addJar(id) {
-
     let arr = this.state.persons.map(user => user.id);
     let index = arr.indexOf(id);
     let temp = {...this.state.persons[index]};
-    // console.log(temp);
-    temp.j = temp.j + 10;
-    // let jar = `${temp.j + 10}`;
-    const copy = {...this.state.persons};
-    console.log(copy);
+    temp.j = temp.j + parseInt(this.state.jar);
+    const copy = [...this.state.persons];
+    copy[index] = temp;
+    this.setState({persons: copy});
+  }
+
+  subJar(id) {
+    let arr = this.state.persons.map(user => user.id);
+    let index = arr.indexOf(id);
+    let temp = {...this.state.persons[index]};
+    temp.j = temp.j - parseInt(this.state.jar);
+    const copy = [...this.state.persons];
     copy[index] = temp;
     this.setState({persons: copy});
   }
@@ -75,7 +81,7 @@ class Persons extends Component {
       <div className="App">
         <h1>Hello {name}!</h1>
         <label>Enter the Value of Jar</label> <br />
-        <input type="text"  onChange={this.jarHandler}/>  <br />
+        <input type="number"  onChange={this.jarHandler}/>  <br />
         <button onClick={this.setJar}>Set Jar</button> <br /> <br />
 
         <label>Add Person</label><br />
@@ -84,7 +90,7 @@ class Persons extends Component {
 
         {this.state.persons.map((user) => {
             return (
-              <Person name={user.name} j={user.j} add={() => this.addJar(user.id)}/>
+              <Person name={user.name} j={user.j} add={() => this.addJar(user.id)} sub={() => this.subJar(user.id)}/>
             )
           })}
       </div>

@@ -5,7 +5,7 @@ const persons = (props) => {
   return (
     <div>
     {props.name} :  {props.j} <br />
-    <button onClick={props.add}>Add</button><button >Sub</button>
+    <button onClick={props.add}>Add</button><button onClick={props.sub}>Sub</button>
 
      </div>
   )
