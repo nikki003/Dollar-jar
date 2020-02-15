@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Persons from './Persons/Persons.js';
-import {Route, Link, BrowserRouter as Router} from 'react-router-dom';
+import Persons from './Persons/Persons';
+import {Link} from "react-router-dom";
 // import logo from './logo.svg';
 import './App.css';
 
@@ -39,14 +39,13 @@ class App extends Component {
 
   render(){
     return (
-      <Router>
       <div>
         <input type="text" onChange={this.nameHandler} />
-        <Link to="/Persons/Persons"><button onClick={this.setNameHandler}>Go</button></Link>
 
-        <Route path="/Persons/Persons" component={Persons} />
+        <Link to={{pathname: '/Persons/Persons', name: this.state.setName}}>
+          <button onClick={this.setNameHandler}>Go</button>
+        </Link>
     </div>
-  </Router>
 
     )
   }

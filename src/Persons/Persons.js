@@ -25,6 +25,8 @@ class Persons extends Component {
     jar: ""
   };
   this.addPerson = this.addPerson.bind(this);
+
+  const name = this.props.location.name;
 }
 
 
@@ -66,11 +68,12 @@ class Persons extends Component {
 
 
   render() {
+    const { name } = this.props.location;
     return (
       // <div>Persons</div>
 
       <div className="App">
-        <h1>Hello</h1>
+        <h1>Hello {name}!</h1>
         <label>Enter the Value of Jar</label> <br />
         <input type="text"  onChange={this.jarHandler}/>  <br />
         <button onClick={this.setJar}>Set Jar</button> <br /> <br />
