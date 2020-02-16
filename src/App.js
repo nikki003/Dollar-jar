@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Persons from './Persons/Persons';
 import {Link} from "react-router-dom";
 // import logo from './logo.svg';
 import './App.css';
@@ -25,7 +24,8 @@ class App extends Component {
   // );
 
   state = {
-    setName: ""
+    setName: "World",
+    pathname: '/Persons/Persons'
   }
 
   nameHandler = (event) => {
@@ -33,16 +33,24 @@ class App extends Component {
   }
 
   setNameHandler = (event) => {
-    let temp = this.state.setName;
-    this.setState({setName: temp});
+    if(this.state.setName === "") {
+      alert("Invalid!");
+      // let temp = "/";
+      // this.setState({pathname: temp});
+    }
+    else {
+      let temp = this.state.setName;
+      this.setState({setName: temp});
+    }
   }
+
 
   render(){
     return (
       <div>
         <input type="text" onChange={this.nameHandler} />
 
-        <Link to={{pathname: '/Persons/Persons', name: this.state.setName}}>
+        <Link to={{pathname: this.state.pathname , name: this.state.setName}}>
           <button onClick={this.setNameHandler}>Go</button>
         </Link>
     </div>
