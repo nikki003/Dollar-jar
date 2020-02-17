@@ -22,23 +22,24 @@ class Persons extends Component {
       // {id:'9', name:'Yash', j:0}
     ],
 
-    jar: 10,
-    total: 0
+    fine: 10,
+    totalFine: 0
   };
-    this.addPerson = this.addPerson.bind(this);
   }
 
 
-  jarHandler = (event) => {
-    this.setState({jar: event.target.value});
+  setFineHandler(event) {
+    console.log("@");
+    this.setState({fine: event.target.value});
+    console.log("$");
   }
 
-  setJar = (event) => {
-    let temp = this.state.jar;
-    this.setState({jar: temp});
+  setFine(event) {
+    let fineValue = this.state.fine;
+    this.setState({fine: fineValue});
   };
 
-  changeHandler = (e) => {
+  addPersonHandler(e) {
     this.setState({newPerson: e.target.value});
 
   }
@@ -49,69 +50,66 @@ class Persons extends Component {
     }
     else {
       let temp = this.state.newPerson;
-      this.state.persons.push({id: Date.now(), name: temp, j:0});
-      let arr = [...this.state.persons];
-      this.setState({persons: arr});
+      this.state.persons.push({id: Date.now(), name: temp, individualFine:0});
+      let personArray = [...this.state.persons];
+      this.setState({persons: personArray});
     }
   }
 
-  addJar(id) {
-    let arr = this.state.persons.map(user => user.id);
-    let index = arr.indexOf(id);
-    let temp = {...this.state.persons[index]};
-    temp.j = temp.j + parseInt(this.state.jar);
-    const copy = [...this.state.persons];
-    copy[index] = temp;
-    this.setState({persons: copy}, () => this.total());
+  addIndividualFine(id) {
+    let arrayOfIndex = this.state.persons.map(user => user.id);
+    let index = arrayOfIndex.indexOf(id);
+    let updateUser = {...this.state.persons[index]};
+    updateUser.individualFine = updateUser.individualFine + parseInt(this.state.fine);
+    const personArray = [...this.state.persons];
+    personArray[index] = updateUser;
+    this.setState({persons: personArray}, () => this.caluculateTotalFine());
   }
 
-  subJar(id) {
-    let arr = this.state.persons.map(user => user.id);
-    let index = arr.indexOf(id);
-    let temp = {...this.state.persons[index]};
-    temp.j = temp.j - parseInt(this.state.jar);
-    const copy = [...this.state.persons];
-    copy[index] = temp;
-    this.setState({persons: copy}, () => this.total());
+  subtractIndividualFine(id) {
+    let arrayOfIndex = this.state.persons.map(user => user.id);
+    let index = arrayOfIndex.indexOf(id);
+    let updateUser = {...this.state.persons[index]};
+    updateUser.individualFine = updateUser.individualFine - parseInt(this.state.fine);
+    const personArray = [...this.state.persons];
+    personArray[index] = updateUser;
+    this.setState({persons: personArray}, () => this.caluculateTotalFine());
   }
 
-  total() {
+  caluculateTotalFine() {
     let total = 0;
     this.state.persons.forEach(value => {
-      total = total + value.j;
+      total = total + value.individualFine;
     });
-    this.setState({total: total});
+    this.setState({totalFine: total});
   }
 
-  validate(event) {
-
-  }
 
 
   render() {
-    const { name } = this.props.location;
+    const { name }  = this.props.location;
     return (
       // <div>Persons</div>
 
       <div className="App"> <br/> <br/>
         <h1>Hello {name}!</h1> <br />
-        <label>Enter the Value of Jar</label> <br />
-        <input type="number"  onChange={this.jarHandler}/>  <br />
-        <button onClick={this.setJar}>Set Jar</button> <br /> <br />
+        <label>Enter the Value of fine</label> <br />
+        <input type="number"  onChange={this.setFineHandler.bind(this)}/>  <br />
+        <button onClick={this.setFine.bind(this)}>Set fine</button> <br /> <br />
 
         <label>Add Person</label><br />
-        <input type="text"  onChange={this.changeHandler} />  <br />
-        <button onClick={this.addPerson}>Add Person</button> <br /> <br />
+        <input type="text"  onChange={this.addPersonHandler.bind(this)} />  <br />
+        <button onClick={this.addPerson.bind(this)}>Add Person</button> <br /> <br />
 
-        <h3>Total :  {this.state.total}</h3> <br/>
+        <h3>Total :  {this.state.totalFine}</h3> <br/>
 
         {this.state.persons.map((user) => {
             return (
               <Person
                 name={user.name}
-                j={user.j}
-                add={() => this.addJar(user.id)}
-                sub={() => this.subJar(user.id)}
+                individualFine={user.individualFine}
+                add={() => this.addIndividualFine(user.id)}
+                subtract={() => this.subtractIndividualFine(user.id)}
                 />
             )
           })}

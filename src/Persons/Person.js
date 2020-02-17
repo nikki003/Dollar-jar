@@ -4,9 +4,9 @@ import '../App.css';
 const persons = (props) => {
   return (
     <div>
-    {props.name} :  {props.j} <br />
+    {props.name} :  {props.individualFine} <br />
     <button onClick={props.add}>Add</button>
-    <button onClick={props.sub}>Sub</button>
+    <button onClick={props.subtract}>Sub</button>
      <br/> <br/></div>
   )
 };

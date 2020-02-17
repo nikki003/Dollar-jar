@@ -22,25 +22,28 @@ class App extends Component {
   //     </header>
   //   </div>
   // );
-
-  state = {
-    setName: "World",
-    pathname: '/Persons/Persons'
+  constructor(props){
+    super(props);
+    this.state = {
+      name: "World",
+      pathname: '/Persons/Persons'
+    };
   }
 
   nameHandler = (event) => {
     this.setState({setName: event.target.value});
   }
 
-  setNameHandler = (event) => {
-    if(this.state.setName === "") {
+  setName = (event) => {
+    let name = this.state.setName;
+    if(name === "") {
       alert("Invalid!");
-      // let temp = "/";
-      // this.setState({pathname: temp});
+      const temp = "/";
+      this.setState({pathname: temp});
     }
     else {
       let temp = this.state.setName;
-      this.setState({setName: temp});
+      this.setState({name: temp});
     }
   }
 
@@ -48,10 +51,10 @@ class App extends Component {
   render(){
     return (
       <div>
-        <input type="text" onChange={this.nameHandler} />
+        <input type="text" value={this.state.name} onChange={this.nameHandler} />
 
-        <Link to={{pathname: this.state.pathname , name: this.state.setName}}>
-          <button onClick={this.setNameHandler}>Go</button>
+        <Link to={{pathname: this.state.pathname , name: this.state.name}}>
+          <button onClick={this.name}>Go</button>
         </Link>
     </div>
 
